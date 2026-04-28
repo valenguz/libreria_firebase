@@ -1,7 +1,6 @@
 import 'package:cloud_firestore/cloud_firestore.dart';
 
 class LibroModel {
-  // 1. Cambiamos int? por String? porque los IDs de Firebase son letras y números
   final String? id; 
   final String titulo;
   final String autor;
@@ -19,7 +18,7 @@ class LibroModel {
   });
 
   LibroModel copyWith({
-    String? id, // Cambiado a String
+    String? id, 
     String? titulo,
     String? autor,
     int? paginas,
@@ -38,18 +37,16 @@ class LibroModel {
 
   Map<String, dynamic> toFirestore() {
   return {
-    'Titulo': titulo, // Con mayúscula para ser consistente
+    'Titulo': titulo, 
     'Autor': autor,
     'Paginas': paginas,
     'updatedAt': Timestamp.fromDate(updatedAt), 
     };
   }
 
-  // 2. Aquí cambiamos el {required int id} por String id
   factory LibroModel.fromFirestore(Map<String, dynamic> map, String id) {
   return LibroModel(
     id: id,
-    // ¡OJO! Cambia 'titulo' por 'Titulo', 'autor' por 'Autor', etc.
     titulo: map['Titulo'] as String? ?? 'Sin título',
     autor: map['Autor'] as String? ?? 'Autor desconocido',
     paginas: map['Paginas'] as int? ?? 0,
